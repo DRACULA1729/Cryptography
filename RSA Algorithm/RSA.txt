@@ -1,0 +1,43 @@
+RSA Encryption and Decryption with Large Number Support
+
+Overview:
+This document describes the implementation of RSA encryption and decryption with support for large numbers. The RSA cryptosystem is a public-key cryptographic algorithm that ensures secure communication. This implementation is optimized for handling large numbers efficiently using specialized libraries.
+
+Libraries Used:
+
+1. **gmpy2**: Provides optimized arithmetic operations, including modular exponentiation and modular inverse.
+2. **sympy**: Used for generating large prime numbers, which are crucial for RSA security.
+3. **multiprocessing**: Enables parallel computation to accelerate encryption and decryption processes.
+4. **os**: Determines the number of CPU cores available to optimize parallel execution.
+
+RSA Process:
+
+1. **Key Generation:**
+
+   - Generate two large prime numbers `p` and `q`.
+   - Compute `n = p * q`, which forms the modulus.
+   - Compute Euler’s totient function: `phi(n) = (p - 1) * (q - 1)`.
+   - Choose a standard public exponent `e = 65537`.
+   - Compute the private key `d` as the modular inverse of `e` modulo `phi(n)`.
+
+2. **Encryption:**
+
+   - Convert each character of the message into its ASCII representation.
+   - Encrypt each chunk using modular exponentiation: `c = m^e mod n`.
+   - Parallelized encryption improves performance by distributing tasks across available CPU cores.
+
+3. **Decryption:**
+
+   - Apply modular exponentiation to retrieve the original message: `m = c^d mod n`.
+   - Convert the numerical representation back to characters.
+   - Decryption is parallelized to speed up processing.
+
+Performance Optimization:
+
+- **Large Prime Generation:** `sympy.randprime()` is used to generate secure prime numbers.
+- **Efficient Arithmetic Operations:** `gmpy2.powmod()` performs modular exponentiation efficiently.
+- **Parallel Execution:** `multiprocessing.Pool()` is used to distribute encryption and decryption tasks across multiple CPU cores.
+
+This implementation ensures that RSA encryption and decryption are performed securely and efficiently, making it suitable for applications requiring strong cryptographic protection.
+
+
