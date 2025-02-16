@@ -75,4 +75,4 @@ if __name__ == "__main__":
     else:
         print("Invalid choice!")
     
-    print("\n✅ RSA Encryption & Decryption Successful!")
+    print("\n RSA Encryption & Decryption Successful!")
